@@ -11,6 +11,80 @@
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sleep Tracker</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <h1>Good Morning!</h1>
+  <p>Track your sleep and build better habits.</p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Log Overnight Sleep</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-input
+          label="Bedtime"
+          labelPlacement="stacked"
+          type="datetime-local"
+          [(ngModel)]="bedtime">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Wake-up Time"
+          labelPlacement="stacked"
+          type="datetime-local"
+          [(ngModel)]="wakeTime">
+        </ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        class="ion-margin-top"
+        (click)="saveSleep()">
+        Save Sleep
+      </ion-button>
+
+      <ion-text color="danger">
+        <p *ngIf="errorMessage">
+          {{ errorMessage }}
+        </p>
+      </ion-text>
+
+      <ion-text color="success">
+        <p *ngIf="successMessage">
+          {{ successMessage }}
+        </p>
+      </ion-text>
+
+    </ion-card-content>
+  </ion-card>
+
+  <h2>Sleep History</h2>
+
+  <ion-card *ngFor="let log of overnightLogs">
+    <ion-card-header>
+      <ion-card-title>
+        {{ log.dateString() }}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ log.summaryString() }}
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
   </ion-header>
 
   <div id="container">
