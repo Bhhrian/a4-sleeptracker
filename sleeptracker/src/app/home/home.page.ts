@@ -14,11 +14,14 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonText
+  IonText,
+  IonSelect,
+  IonSelectOption
 } from '@ionic/angular/standalone';
 
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
+import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 
 @Component({
   selector: 'app-home',
@@ -38,16 +41,26 @@ import { OvernightSleepData } from '../data/overnight-sleep-data';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonText
+    IonText,
+    IonSelect,
+    IonSelectOption
   ]
 })
 export class HomePage {
 
+  // Overnight sleep logging
   bedtime: string = '';
   wakeTime: string = '';
 
   errorMessage: string = '';
   successMessage: string = '';
+
+  // Daytime sleepiness logging
+  sleepinessLevel: number | null = null;
+  sleepinessError: string = '';
+  sleepinessSuccess: string = '';
+
+  readonly sleepinessScale = StanfordSleepinessData.ScaleValues;
 
   constructor(public sleepService: SleepService) {}
 
@@ -55,6 +68,11 @@ export class HomePage {
     return SleepService.AllOvernightData;
   }
 
+  get sleepinessLogs(): StanfordSleepinessData[] {
+    return SleepService.AllSleepinessData;
+  }
+
+  // Save overnight sleep data
   saveSleep(): void {
     this.errorMessage = '';
     this.successMessage = '';
@@ -98,5 +116,36 @@ export class HomePage {
 
     this.bedtime = '';
     this.wakeTime = '';
+  }
+
+  // Save Stanford Sleepiness Scale data
+  saveSleepiness(): void {
+    this.sleepinessError = '';
+    this.sleepinessSuccess = '';
+
+    const level = Number(this.sleepinessLevel);
+
+    if (
+      this.sleepinessLevel === null ||
+      !Number.isInteger(level) ||
+      level < 1 ||
+      level > 7
+    ) {
+      this.sleepinessError =
+        'Please select a sleepiness level from 1 to 7.';
+      return;
+    }
+
+    const log = new StanfordSleepinessData(
+      level,
+      new Date()
+    );
+
+    this.sleepService.logSleepinessData(log);
+
+    this.sleepinessSuccess =
+      'Sleepiness recorded successfully!';
+
+    this.sleepinessLevel = null;
   }
 }
