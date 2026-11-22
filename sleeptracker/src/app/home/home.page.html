@@ -72,4 +72,65 @@
     </ion-card-content>
   </ion-card>
 
+<!-- Daytime Sleepiness Logging -->
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>
+      Log Daytime Sleepiness
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    <p>How sleepy are you feeling right now?</p>
+
+    <ion-item>
+      <ion-select
+        label="Sleepiness Level"
+        labelPlacement="stacked"
+        placeholder="Select a level (1-7)"
+        interface="alert"
+        [(ngModel)]="sleepinessLevel">
+
+        <ion-select-option
+          *ngFor="let description of sleepinessScale; let i = index"
+          [value]="i"
+          [disabled]="i === 0">
+          {{ i }} - {{ description }}
+        </ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      class="ion-margin-top"
+      (click)="saveSleepiness()">
+      Save Sleepiness
+    </ion-button>
+
+    <ion-text color="danger">
+      <p *ngIf="sleepinessError">
+        {{ sleepinessError }}
+      </p>
+    </ion-text>
+
+    <ion-text color="success">
+      <p *ngIf="sleepinessSuccess">
+        {{ sleepinessSuccess }}
+      </p>
+    </ion-text>
+
+  </ion-card-content>
+  </ion-card>
+
+  <!-- Daytime Sleepiness History -->
+  <h2>Sleepiness History</h2>
+
+  <ion-card *ngFor="let log of sleepinessLogs">
+    <ion-card-content>
+      <p>{{ log.dateString() }}</p>
+      <p>{{ log.summaryString() }}</p>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
