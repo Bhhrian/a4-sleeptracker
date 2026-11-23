@@ -153,4 +153,48 @@ export class SleepService {
 
     this.saveSleepinessData();
   }
+
+  public deleteOvernightData(index: number): void {
+    if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= SleepService.AllOvernightData.length
+    ) {
+      return;
+    }
+
+    const log = SleepService.AllOvernightData[index];
+
+    SleepService.AllOvernightData.splice(index, 1);
+
+    const allIndex = SleepService.AllSleepData.indexOf(log);
+
+    if (allIndex !== -1) {
+      SleepService.AllSleepData.splice(allIndex, 1);
+    }
+
+    this.saveOvernightData();
+  }
+
+  public deleteSleepinessData(index: number): void {
+    if (
+      !Number.isInteger(index) ||
+      index < 0 ||
+      index >= SleepService.AllSleepinessData.length
+    ) {
+      return;
+    }
+
+    const log = SleepService.AllSleepinessData[index];
+
+    SleepService.AllSleepinessData.splice(index, 1);
+
+    const allIndex = SleepService.AllSleepData.indexOf(log);
+
+    if (allIndex !== -1) {
+      SleepService.AllSleepData.splice(allIndex, 1);
+    }
+
+    this.saveSleepinessData();
+  }
 }
