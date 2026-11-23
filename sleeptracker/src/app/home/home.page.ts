@@ -76,6 +76,54 @@ export class HomePage {
     return SleepService.AllSleepinessData;
   }
 
+  // Dashboard: total overnight sleep records
+  get totalSleepLogs(): number {
+    return this.overnightLogs.length;
+  }
+
+  // Dashboard: average sleep duration in hours
+  get averageSleepHours(): string {
+    if (this.overnightLogs.length === 0) {
+      return '0.0';
+    }
+
+    let totalHours = 0;
+
+    for (const log of this.overnightLogs) {
+      const record = log as unknown as {
+        sleepStart: Date;
+        sleepEnd: Date;
+      };
+
+      const duration =
+        (record.sleepEnd.getTime() -
+          record.sleepStart.getTime()) / 3600000;
+
+      totalHours += duration;
+    }
+
+    return (totalHours / this.overnightLogs.length).toFixed(1);
+  }
+
+  // Dashboard: average Stanford Sleepiness Scale score
+  get averageSleepiness(): string {
+    if (this.sleepinessLogs.length === 0) {
+      return '0.0';
+    }
+
+    let total = 0;
+
+    for (const log of this.sleepinessLogs) {
+      const record = log as unknown as {
+        loggedValue: number;
+      };
+
+      total += record.loggedValue;
+    }
+
+    return (total / this.sleepinessLogs.length).toFixed(1);
+  }
+
   // Save overnight sleep data
   saveSleep(): void {
     this.errorMessage = '';
