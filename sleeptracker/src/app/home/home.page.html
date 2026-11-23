@@ -96,6 +96,10 @@
   <!-- Overnight Sleep History -->
   <h2>Sleep History</h2>
 
+  <p *ngIf="overnightLogs.length === 0">
+    No sleep records yet. Log your first night's sleep!
+  </p>
+
   <ion-card *ngFor="let log of overnightLogs; let i = index">
     <ion-card-header>
       <ion-card-title>
@@ -104,8 +108,23 @@
     </ion-card-header>
 
     <ion-card-content>
-      <p>{{ log.summaryString() }}</p>
 
+      <div class="sleep-times">
+        <div>
+          <p>Bedtime</p>
+          <h3>{{ log.getBedtime() }}</h3>
+        </div>
+  
+        <div>
+          <p>Wake-up</p>
+          <h3>{{ log.getWakeTime() }}</h3>
+        </div>
+      </div>
+  
+      <p class="sleep-duration">
+        Total Sleep: {{ log.summaryString() }}
+      </p>
+  
       <ion-button
         color="danger"
         fill="outline"
@@ -113,6 +132,7 @@
         (click)="confirmDeleteOvernight(i)">
         Delete
       </ion-button>
+  
     </ion-card-content>
   </ion-card>
 
@@ -169,11 +189,22 @@
   <!-- Daytime Sleepiness History -->
   <h2>Sleepiness History</h2>
 
+  <p *ngIf="sleepinessLogs.length === 0">
+    No sleepiness records yet. Log how you feel today!
+  </p>
+
   <ion-card *ngFor="let log of sleepinessLogs; let i = index">
     <ion-card-content>
-      <p>{{ log.dateString() }}</p>
-      <p>{{ log.summaryString() }}</p>
-
+      <p class="sleepiness-date">{{ log.dateString() }}</p>
+    
+      <p class="sleepiness-time">
+        Logged at {{ log.getLoggedTime() }}
+      </p>
+    
+      <p class="sleepiness-level">
+        {{ log.summaryString() }}
+      </p>
+    
       <ion-button
         color="danger"
         fill="outline"

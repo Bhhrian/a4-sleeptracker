@@ -140,3 +140,53 @@ ion-button {
     margin: 0 auto;
   }
 }
+
+.sleep-times {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sleep-times div {
+  flex: 1;
+}
+
+.sleep-times p {
+  color: #9caec9;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.sleep-times h3 {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sleep-duration {
+  background-color: #27364f;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.sleepiness-date {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.sleepiness-time {
+  color: #9caec9;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.sleepiness-level {
+  background-color: #27364f;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
