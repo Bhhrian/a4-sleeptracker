@@ -16,7 +16,8 @@ import {
   IonCardContent,
   IonText,
   IonSelect,
-  IonSelectOption
+  IonSelectOption,
+  AlertController
 } from '@ionic/angular/standalone';
 
 import { SleepService } from '../services/sleep.service';
@@ -62,7 +63,10 @@ export class HomePage {
 
   readonly sleepinessScale = StanfordSleepinessData.ScaleValues;
 
-  constructor(public sleepService: SleepService) {}
+  constructor(
+    public sleepService: SleepService,
+    private alertController: AlertController
+  ) {}
 
   get overnightLogs(): OvernightSleepData[] {
     return SleepService.AllOvernightData;
@@ -147,5 +151,53 @@ export class HomePage {
       'Sleepiness recorded successfully!';
 
     this.sleepinessLevel = null;
+  }
+
+  // Confirm deletion of an overnight sleep record
+  async confirmDeleteOvernight(index: number): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Delete Sleep Record?',
+      message: 'This action cannot be undone.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.sleepService.deleteOvernightData(index);
+            this.successMessage = '';
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // Confirm deletion of a daytime sleepiness record
+  async confirmDeleteSleepiness(index: number): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Delete Sleepiness Record?',
+      message: 'This action cannot be undone.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.sleepService.deleteSleepinessData(index);
+            this.sleepinessSuccess = '';
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }
