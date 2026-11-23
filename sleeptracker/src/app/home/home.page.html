@@ -9,6 +9,42 @@
   <h1>Good Morning!</h1>
   <p>Track your sleep and build better habits.</p>
 
+<!-- Sleep Dashboard -->
+<h2>Your Sleep Dashboard</h2>
+
+<div class="dashboard-grid">
+
+  <ion-card class="dashboard-card">
+    <ion-card-content>
+      <p class="dashboard-label">Sleep Logs</p>
+      <h2 class="dashboard-value">
+        {{ totalSleepLogs }}
+      </h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="dashboard-card">
+    <ion-card-content>
+      <p class="dashboard-label">Avg. Sleep</p>
+      <h2 class="dashboard-value">
+        {{ averageSleepHours }}h
+      </h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="dashboard-card">
+    <ion-card-content>
+      <p class="dashboard-label">Avg. Sleepiness</p>
+      <h2 class="dashboard-value">
+        {{ averageSleepiness }}
+      </h2>
+      <p class="dashboard-label">out of 7</p>
+    </ion-card-content>
+  </ion-card>
+
+</div>
+
+
   <!-- Overnight Sleep Logging -->
   <ion-card>
     <ion-card-header>
