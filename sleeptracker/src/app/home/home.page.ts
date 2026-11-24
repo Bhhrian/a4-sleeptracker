@@ -23,6 +23,7 @@ import {
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
+import { LocalNotifications } from '@capacitor/local-notifications';
 
 @Component({
   selector: 'app-home',
@@ -61,12 +62,20 @@ export class HomePage {
   sleepinessError: string = '';
   sleepinessSuccess: string = '';
 
+  // Sleepiness reminder
+  reminderMinutes: number = 30;
+  reminderSuccess: string = '';
+
   readonly sleepinessScale = StanfordSleepinessData.ScaleValues;
 
   constructor(
     public sleepService: SleepService,
     private alertController: AlertController
   ) {}
+
+  async ngOnInit() {
+    await LocalNotifications.requestPermissions();
+  }
 
   get overnightLogs(): OvernightSleepData[] {
     return SleepService.AllOvernightData;
@@ -247,5 +256,23 @@ export class HomePage {
     });
 
     await alert.present();
+  }
+
+  async setReminder() {
+    this.reminderSuccess = '';
+    await LocalNotifications.schedule({
+        notifications: [
+            {
+                title: "Sleepiness Reminder",
+                body: "Don't forget to log your daytime sleepiness!",
+                id: 1,
+                schedule: {
+                    at: new Date(Date.now() + 1000 * 60 * this.reminderMinutes)
+                }
+            }
+        ]
+    });
+
+    this.reminderSuccess = 'Reminder set successfully!';
   }
 }

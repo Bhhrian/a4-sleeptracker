@@ -215,4 +215,51 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Sleepiness Reminder -->
+  <ion-card>
+    <ion-card-header>
+        <ion-card-title>Sleepiness Reminder</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        <p>Set a reminder to log your daytime sleepiness.</p>
+
+        <ion-item>
+            <ion-select
+                label="Remind me in"
+                labelPlacement="stacked"
+                [(ngModel)]="reminderMinutes">
+
+                <ion-select-option [value]="1">
+                    1 minute
+                </ion-select-option>
+
+                <ion-select-option [value]="30">
+                    30 minutes
+                </ion-select-option>
+
+                <ion-select-option [value]="60">
+                    1 hour
+                </ion-select-option>
+
+                <ion-select-option [value]="120">
+                    2 hours
+                </ion-select-option>
+
+            </ion-select>
+        </ion-item>
+
+        <ion-button
+            expand="block"
+            class="ion-margin-top"
+            (click)="setReminder()">
+            Set Reminder
+        </ion-button>
+        
+        <ion-text color="success">
+          <p *ngIf="reminderSuccess">{{ reminderSuccess }}</p>
+        </ion-text>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
