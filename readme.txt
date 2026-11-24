@@ -1,19 +1,20 @@
 --Readme document for *author(s)*, *email(s)*, *UCI id(s)*--
 Hyeonbeen Han, hyeonbh@uci.edu, 58713923
+Daniel Ho Kim, danihk15@uci.edu, 47366336
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 
-10/10
+11/10
 - 1/1 The ability to log overnight sleep
 - 1/1 The ability to log sleepiness during the day
 - 1/1 The ability to view these two categories of logged data
-- 2/2 Either using a native device resource or backing up logged data
+- 3/2 Either using a native device resource or backing up logged data
 - 2/2 Following good principles of mobile design
 - 2/2 Creating a compelling app
 - 1/1 A readme and demo video which explains how these features were implemented and their design rationale
 
 2. How long, in hours, did it take you to complete this assignment?
-Brian: Approximately 10 hours combined, including implementation, debugging, UI design, testing, and documentation.
+Approximately 10 hours combined, including implementation, debugging, UI design, testing, and documentation.
 
 
 3. What online resources did you consult when completing this assignment? (list specific URLs)
@@ -22,16 +23,21 @@ Brian: Approximately 10 hours combined, including implementation, debugging, UI 
 - Capacitor Documentation: https://capacitorjs.com/docs
 - MDN Web Docs (Web Storage API): https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 - ChatGPT (OpenAI): https://chatgpt.com — Used to understand assignment requirements, troubleshoot Angular and TypeScript code, implement sleep tracking functionality, and improve UI design.
-
+- ChatGPT: Used to resolve Capacitor version conflicts and set up the iOS environment. 
 
 4. What classmates or other individuals did you consult as part of this assignment? What did you discuss?
 Brian:  collaborated with my project partner, Daniel, to discuss feature implementation, user interface design, sleep history presentation, native notifications, and integration of our code through GitHub.
-
+Daniel: I worked with my partner, Brian, to discuss the overall app design and additional features, including improvements to the sleep history interface and the sleepiness reminder.
 
 5. Is there anything special we need to know in order to run your code?
 Run npm install followed by ionic serve inside the sleeptracker directory to launch the application in a browser. Native notification functionality requires a supported device environment and appropriate notification permissions.
+The Sleepiness Reminder feature was successfully tested on an iPhone simulator using Xcode. Xcode and CocoaPods are required to test this feature on iOS.
+1. Run npm run build.
+2. Run npx cap sync ios.
+3. Run npx cap open ios.
 
 
+Allow notification permissions when prompted.
 
 --Aim for no more than two sentences for each of the following questions.--
 
@@ -41,7 +47,7 @@ We designed the app for students and busy individuals who want a simple way to m
 
 
 7. Did you design your app specifically for iOS or Android, or both?
-We designed the application using Ionic and Angular to support both iOS and Android. We also added an iOS native project using Capacitor.
+We designed the application using Ionic and Angular to support both iOS and Android. We also added an iOS native project using Capacitor and tested the application on an iPhone simulator.
 
 
 8. How can a person log overnight sleep in your app? Why did you choose to support logging overnight sleep in this way?
@@ -68,4 +74,5 @@ We added native sleepiness notifications using Capacitor to remind users to trac
 Sleep records are stored locally on the user's device using the browser's localStorage API. This allows previously saved entries to remain available after closing or refreshing the application, although the data is not backed up to an external server.
 
 14. How does your app implement or follow principles of good mobile design?
-Brian: We implemented a clear dashboard as the initial view, providing immediate access to important sleep statistics and tracking features. We also incorporated error prevention through input validation, an easy way to cancel deletion through confirmation dialogs, and familiar Ionic components that follow mobile platform conventions.
+We implemented a clear dashboard, familiar Ionic components, input validation, and confirmation dialogs to make the app intuitive and prevent user errors. 
+We also improved the sleep history interface by separating bedtime and wake-up time, highlighting sleep duration and sleepiness levels, and using consistent colors and spacing to improve readability on mobile devices.
